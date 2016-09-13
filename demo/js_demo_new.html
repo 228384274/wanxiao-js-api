@@ -1,0 +1,663 @@
+
+<html>
+<head>
+    <!--<meta name="viewport" content="width=device-width" user-scalable="yes">-->
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <!--<meta name="viewport" content="width=50,shrink-to-fit=YES">-->
+    <meta name="viewport" content="width=700" user-scalable="yes">
+    <title>测试分享页面信息new</title>
+    <!-- 定义js方法-->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/wanxiao-js-api.js"></script>
+
+
+</head>
+<body>
+
+------------------------------
+<br/>asdf
+<br/>
+<input type="button" value="读取cookie" onclick="readCookies()"  />
+<br/>
+<br/>
+<input type="button" value="定位" onclick="jsGeLocationPosition()"/>
+经纬度:
+<label id="wz"></label>
+
+<br/>
+<br/> ----------------------------
+
+<br/>
+<br/>
+<input type="button" value="获取头像" onclick="jsGetUserGravatar()"/>
+<label id="pic_url"></label>
+<img id="pic" alt="头像" src="">
+
+<br/>
+<br/> ----------------------------
+
+<br/>
+<br/>
+<input type="button" value="选择图片" onclick="openCamera1()"/>
+<input type="button" value="选择图片(直接打开相册)" onclick="openCamera_1()"/>
+<input type="button" value="选择图片(直接打开相机)" onclick="openCamera_2()"/>
+<br/>
+<img id="select_img" alt="" src="">
+
+<br/>
+<br/> ----------------------------
+<br/>
+<br/>
+
+<input type="button" value="分享..." onclick="shareToWanxiao();"/>
+<br/>
+
+<input type="button" value="分享到微信朋友圈" onclick="ShareWeixinCircle();"/>
+<input type="button" value="分享到微信好友" onclick="ShareWeixin()"/>
+<input type="button" value="分享到同学圈" onclick="ShareWanXiaoCircle();"/>
+<br/>
+<input type="button" value="分享到微博" onclick="ShareWeibo();"/>
+<input type="button" value="分享到QQ" onclick="ShareQQ();"/>
+<input type="button" value="分享到QQ空间" onclick="ShareQzone();"/>
+<br>
+<br>
+------------------------
+<br>
+<br>
+<input type="button" value="查询积分" onclick="callGetCredits()"/>
+<input type="button" value="添加积分" onclick="callAddCredits()"/>
+<input type="button" value="扣减积分" onclick="callReduceCredits()"/>
+<br>
+<br>
+
+------------------
+<br>
+<br>
+<input type="button" value="调起支付收银台" onclick="callGetPayWay()"/>
+<br>
+<br>
+
+------------------
+<br>
+<br>
+
+<table>
+    <tr>
+        <td>sign:</td>
+        <td><input id="s" type="text" value="2B5A2EC1"/></td>
+    </tr>
+    <tr>
+        <td>toUserId:</td>
+        <td><input id="u" type="text" value="21626"/></td>
+    </tr>
+</table>
+<input type="button" value="插件消息推送-Html" onclick="aaaa()"/>
+
+<br/>
+<label id="r"></label>
+<br/>
+<br/>
+<table>
+    <tr>
+        <td>sign:</td>
+        <td><input id="s1" type="text" value="7682F96D"/></td>
+    </tr>
+    <tr>
+        <td>toUserId:</td>
+        <td><input id="u1" type="text" value="21626"/></td>
+    </tr>
+    <tr>
+        <td>param:</td>
+        <td><input id="p1" type="text"
+                   value="{param1:'ylxt_activity1', param2:'ylxt_activity2'}"/></td>
+    </tr>
+
+</table>
+<input type="button" value="插件消息推送-activity" onclick="bbbb()"/>
+<br/>
+<label id="r1"></label>
+
+<br/>
+<br/>
+--------------------------------
+<br/><br/>
+
+<input type="button" value="说两句" onclick="openChat()"/>
+
+<br/><br/>
+
+<input type="button" value="创建3个菜单" onclick="createMenu()"/>
+<input type="button" value="创建1个菜单" onclick="createMenu1()"/>
+<input type="button" value="创建1个菜单" onclick="createMenu11()"/>
+
+<br/>
+新菜单设置
+<br/>
+
+<input type="button" value="创建3个菜单" onclick="createMenuNew()"/>
+<input type="button" value="创建1个菜单" onclick="createMenu1New()"/>
+
+<input type="button" value="显示菜单" onclick="showMenu()"/>
+<input type="button" value="隐藏菜单" onclick="hideMenu()"/>
+
+<br/><br/>
+<input type="button" value="扫描条码" onclick="scan()"/>
+<label id="barcode"></label>
+
+<br/><br/>
+<input type="button" value="摇一摇" onclick="startShake()"/>
+<br/>
+<label id="shake_result"></label>
+<br/><br/>
+<input type="button" value="图片浏览" onclick="openImageView()"/>
+<br/><br/>
+<input type="button" value="获取网络状态" onclick="getNetwork()"/>
+<br/><br/>
+<input type="button" value="选择图片" onclick="select_image1()"/>
+<input type="button" value="选择图片(不裁剪)" onclick="select_image2()"/>
+<input type="button" value="选择图片(裁剪)" onclick="select_image3()"/>
+<br/>
+<br/>
+<img id="select_image" alt="" src="">
+
+<input id="title_text" type="text" value=""/>
+<input type="button" value="设置标题" onclick="setTitle()"/>
+
+<br/><br/>
+    
+<input id="config_text" type="text" value=""/>
+<input type="button" value="设置配置" onclick="setConfig()"/>
+
+<br/><br/>
+<input type="button" value="获取配置项" onclick="getConfig()"/>
+<br/><br/>
+
+<!--<input type="button" value="发帖scheme加回调" onclick="publishSchemeCallback()">-->
+<a href="wanxiao://17wanxiao.com?page=publishFriendCirclePage&data={content:'scheme传入的内容'}">发帖</a>
+
+<input type="button" value="获取token" onclick="getTokenInfo()"/>
+<br/><br/>
+ 
+<label id="userinfo"></label>
+<input type="button" value="获得用户信息" onclick="callUserInfo()"/>
+<br/><br/>
+    
+<input type="button" value="关闭webapp" onclick="closeWebapp()"/>
+<br/><br/>
+
+<input type="button" value="调用直播" onclick="openPlay()"/>
+<br/><br/>
+-----------------------------------------------
+        <h1>TEST</h1>
+        <a href="wanxiao://17wanxiao.com?page=webBrowser&iosLaunchType=iosLaunchTypeModal&data=%7b%22url%22%3a%22http%3a%2f%2fwww.baidu.com%22%7d">webBrowser</a>
+        
+    	</br>
+		</br>
+        <a href="wanxiao://17wanxiao.com?page=jdkpl&iosLaunchType=iosLaunchTypeModal&data={'type':'1','sku':'1084054'}">test JDSDK</a>
+        
+    	</br>
+		</br>
+		<a href="wanxiao://17wanxiao.com?page=publishFriendCirclePage&iosLaunchType=iosLaunchTypeModal&data={'content':'10086'}">send friend</a>
+    	</br>
+		</br>
+		<a href="wanxiao://17wanxiao.com?page=bindMobile&iosLaunchType=iosLaunchTypeModal&data={'content':'10086'}">bind mobile</a>
+
+    	</br>
+		</br>
+		<a href="wanxiao://17wanxiao.com?page=bindStudent&iosLaunchType=iosLaunchTypeModal&data={'content':'10086'}">bind student</a>
+
+    	</br>
+		</br>
+		<a href="wanxiao://17wanxiao.com?page=bindingSchoolCard&iosLaunchType=iosLaunchTypeModal&data={'content':'10086'}">bindingSchoolCard</a>
+
+    	</br>
+		</br>
+		<a href="wanxiao://17wanxiao.com?page=payway&iosLaunchType=iosLaunchTypeModal&data={\"orderInfo\":{\"order_no\":\"1101\",\"merchant_olid\":\"11102"\,\"ver\":\"10003\",\"app_id\":\"11212\",\"acccode\":"\11111\",\"olid"\:\"22313\",\"accdescrp\":"\11111\",\"total_fee\":\"100000\",\"gateway_id\":\"1111\",\"gateway_type\":\"2232323\",\"sign\":\"213231\"},\"targetUrl\":\"http://www.baidu.com\"}">payway</a>
+<h2 id="headline">loading...</h2>
+</body>
+
+<script>
+
+    //新设置菜单
+    {
+//        arrayObj[0] = getMenuObject("百度", "http://www.baidu.com/favicon.ico", "http://www.baidu.com");
+//        arrayObj[1] = getMenuObject("网易", "http://www.163.com/favicon.ico", "http://www.163.com");
+//        arrayObj[2] = getMenuObject("扫一扫", "http://www.ithome.com/favicon.ico", "javascript:scan()");
+	
+        function openPlay() {
+        
+        	wanxiao.NCPStartTalkFun("2","123","444444");
+        }
+        
+        function setConfig() {
+
+        	wanxiao.setConfig("key1106",config_text.value);
+        }
+
+        function getConfig() {
+
+        	wanxiao.getConfig("key1106", function (result) {
+            
+            	alert(result);
+        	});
+    	}
+        
+        function closeWebapp(){
+             wanxiao.closeAppWeb();
+        }
+
+        
+        function callUserInfo(){
+            
+             var userinfo = document.getElementById("userinfo");
+             wanxiao.getUserJsonValue(function(result){
+                 
+                 
+               userinfo.innerHTML += "<br/>" + JSON.stringify(result)+"<br/> ";
+                 //alert(result);
+                 
+            });
+        }
+
+        
+        function getTokenInfo(){
+             wanxiao.getToken(function(result){
+                alert(result);
+            });
+        }
+
+        var headline = $("#headline");	
+		function set_headline (text) {
+   			 headline.text(text);
+		}
+
+        
+        function showMenu(){
+            wanxiao.showMenu();
+        }
+
+        function hideMenu(){
+            wanxiao.hideMenu();
+        }
+
+        var menu1={"id":"10","title":"分享微信","icon":"http://3.kimimagic01.sinaapp.com/password.png"};
+        var menu2={"id":"20","title":"分享朋友圈","icon":"http://3.kimimagic01.sinaapp.com/record.png"};
+        var menu3={"id":"30","title":"分享同学圈","icon":"http://3.kimimagic01.sinaapp.com/78@3x.png"};
+        
+
+        function createMenuNew(){
+            var menu={"data":[menu1,menu2,menu3]};
+            wanxiao.setMenu1(menu,function(id){
+                alert(id);
+                switch (id) 
+                {
+                    case 10:
+                        ShareWeixin();
+                        break;
+                    case 20:
+                        ShareWeixin();
+                        break;
+                    case 30:
+                        ShareWanXiaoCircle();
+                        break;
+                    default:
+                      	break;
+                
+                }
+            });
+        }
+
+        function createMenu1New(){
+            var menu={"data":[menu3]};
+            wanxiao.setMenu1(menu,function(id){
+                alert(id);
+            });
+        }
+    }
+
+
+    function readCookies(){
+        var cookie_s=document.cookie;
+        alert(cookie_s);
+    }
+
+
+    wanxiao.commonCallback(function(result){
+        alert(result);
+    });
+
+//    function publishSchemeCallback(){
+//
+//    }
+
+    function setTitle() {
+
+        wanxiao.setTitle(title_text.value, function (result) {
+            
+            alert(result);
+        });
+    }
+
+    function select_image1() {
+        wanxiao.selectImage(function (result) {
+            select_image.src = "data:image/png;base64," + result;
+        });
+    }
+
+    function select_image2() {
+
+        var jsonString = '{"isCrop":0, "ratio":1.5}';
+
+        wanxiao.selectImage1(jsonString, function (result) {
+            select_image.src = "data:image/png;base64," + result;
+        });
+    }
+
+    function select_image3() {
+
+        var jsonString = '{"isCrop":1, "ratio":1.5}';
+
+        wanxiao.selectImage1(jsonString, function (result) {
+            select_image.src = "data:image/png;base64," + result;
+        });
+    }
+
+    function getNetwork() {
+        wanxiao.getNetworkStatus(function (result) {
+            alert(result);
+        });
+    }
+
+    function openImageView() {
+        var arrayObj = new Array();
+        arrayObj[0] = "http://www.baidu.com/favicon.ico";
+        arrayObj[1] = "http://www.163.com/favicon.ico";
+        arrayObj[2] = "http://www.ithome.com/favicon.ico";
+        arrayObj[3] = "http://192.168.157.246/img/1.gif";
+        arrayObj[4] = "http://192.168.157.246/img/2.jpg";
+        var jsonStr = JSON.stringify(arrayObj);
+
+//        alert(jsonStr);
+
+//        wz.innerHTML=jsonStr;
+
+        var index = 2;
+
+        wanxiao.openImageView(jsonStr, index, function (result) {
+            if (result != null && result != "") {
+                alert(result);
+            }
+        });
+    }
+
+
+    function startShake() {
+        wanxiao.shake(function () {
+            shake_result.innerHTML += "跟我一起摇摆</br>"
+        });
+    }
+
+    startShake();
+
+
+    //--------------扫描条码-------------
+
+
+    function scan() {
+        wanxiao.scanBarcode(function (result) {
+            barcode.innerHTML = result;
+        });
+    }
+    ;
+
+
+    //----------创建菜单-----------------------
+
+    function getMenuObject(title, icon, url) {
+        var m = new Object();
+        m.title = title;
+        m.icon = icon;
+        m.url = url;
+        return m;
+    }
+    ;
+
+    createMenu11();
+
+    function createMenu() {
+
+        var arrayObj = new Array();
+
+        arrayObj[0] = getMenuObject("百度", "http://www.baidu.com/favicon.ico", "http://www.baidu.com");
+        arrayObj[1] = getMenuObject("网易", "http://www.163.com/favicon.ico", "http://www.163.com");
+        arrayObj[2] = getMenuObject("扫一扫", "http://www.ithome.com/favicon.ico", "javascript:scan()");
+
+        var jsonStr = JSON.stringify(arrayObj);
+
+        //alert(jsonStr);
+        wanxiao.setMenu(jsonStr, function (result) {
+            alert("setMenu:---" + result);
+        });
+    }
+    ;
+
+    function createMenu11() {
+        var menuJson = [{"title": "扫一扫", "icon": "http://www.163.com/favicon.ico", "url": "javascript:scan()"}];
+        var jsonStr = JSON.stringify(menuJson);
+        //alert(jsonStr);
+        wanxiao.setMenu(jsonStr, function (result) {
+        });
+    }
+
+    function createMenu1() {
+
+        var arrayObj = new Array();
+
+        arrayObj[0] = getMenuObject("百度", "http://192.168.156.90/img/face.png", "http://www.baidu.com");
+        //arrayObj[1]=getMenuObject("网易","","http://www.163.com");
+        //arrayObj[2]=getMenuObject("IT之家","","http://www.ithome.com");
+
+        var jsonStr = JSON.stringify(arrayObj);
+        alert(jsonStr)
+
+        wanxiao.setMenu(jsonStr, function (result) {
+        });
+
+
+    }
+
+    //---------------获取定位-----------------
+    function jsGeLocationPosition() {
+        //alert('-----------jsGeLocationPosition_ok');
+        var wz = document.getElementById("wz");
+        wanxiao.getLocation(function (result) {
+           
+            //alert(jsonResult);
+            wz.innerHTML += "<br/>" + JSON.stringify(result)+"<br/> " +result.lat+","+result.lng;
+        });
+    }
+    //jsGeLocationPosition();
+
+    //----------获取头像-------------
+    function jsGetUserGravatar() {
+        pic.src = "";
+        wanxiao.getUserGravatar(function (url) {
+            pic.src = url;
+            pic_url.innerHTML = url;
+        });
+    }
+    //jsGetUserGravatar();
+
+    //------------选择照片-------------------
+    function openCamera1() {
+        var jsonString = '{"isCrop":1, "ratio":1.5}';
+        wanxiao.openCamera(jsonString);
+    }
+    //直接打开相册
+    function openCamera_1(){
+        var jsonString='{"action":1,"isCrop":0, "ratio":1.5}';
+        wanxiao.openCamera(jsonString);
+    }
+    //直接打开拍照
+    function openCamera_2(){
+        var jsonString='{"action":2,"isCrop":1, "ratio":1.5}';
+        wanxiao.openCamera(jsonString);
+    }
+
+    Wanxiao.prototype.cameraPhotoCallBack = function (photoBase64Str) {
+
+        select_img.src = "data:image/png;base64," + photoBase64Str;
+    };
+
+    //-----------分享-------------------------
+
+
+    var images = "[{\"url\":\"http://www.17wanxiao.com:80/campus/~/userPic/164\"},{\"url\":\"http://www.17wanxiao.com:80/campus/~/userPic/167\"}]";
+
+    var imagejson = eval('(' + images + ')');
+
+    //alert(imagejson);
+
+
+    function shareToWanxiao() {
+        wanxiao.shareTo("-1", "sharetest", imagejson,"11","11","111","222","333");
+    }
+
+    function ShareWanXiaoCircle() {
+        wanxiao.shareTo("0", "sharetest", imagejson,"11","11","111","222","333");
+    }
+
+    function ShareWeixin() {
+        wanxiao.shareTo("1", "sharetest", imagejson);
+    }
+
+    function ShareWeixinCircle() {
+        wanxiao.shareTo("2", "sharetest", imagejson);
+    }
+
+    function ShareWeibo() {
+        wanxiao.shareTo("3", "sharetest", imagejson);
+    }
+
+    function ShareQQ() {
+        wanxiao.shareTo("4", "sharetest", imagejson);
+    }
+
+    function ShareQzone() {
+        wanxiao.shareTo("5", "sharetest", imagejson);
+    }
+
+
+    //-------------积分----------------
+
+    function callGetCredits() {
+        var jsonString = '{"sign":"EA5CCB20","flag":"entertainmentSys","token":"3a459a5b-3dae-40a2-a942-ab27eb7758a3"}';
+        wanxiao.getCredits(jsonString, callbackCredits);
+    }
+
+    function callAddCredits() {
+        var jsonString = '{"sign":"0F3A9D39","desc":"娱乐系统赠送积分","flag":"entertainmentSys","token":"3a459a5b-3dae-40a2-a942-ab27eb7758a3","grade":"10"}';
+        wanxiao.addCredits(jsonString, callbackCredits);
+    }
+
+    function callReduceCredits() {
+        var jsonString = '{"sign":"5183BC22","desc":"娱乐系统消费积分","flag":"entertainmentSys","token":"3a459a5b-3dae-40a2-a942-ab27eb7758a3","grade":"5"}';
+        wanxiao.reduceCredits(jsonString, callbackCredits);
+    }
+
+    wanxiao.open
+
+    function callbackCredits(restring) {
+        if (restring != null && restring != "") {
+            alert(restring);
+        } else {
+            alert("未获得调用结果");
+        }
+    }
+
+    //-------------------------
+
+    //60FE8BDC    //742
+    //822517F1    //134320
+
+    /**
+     * 插件消息推送 url
+     */
+    function aaaa() {
+
+        //var param='{"sign":"60FE8BDC","message":"测试推送内容","title":"推送标题","flag":"entertainmentSys","versionname":"v1.0","token":"7d444f84-2389-4f31-adf3-79f22dba8836","toUserId":134320,"param":"{param1:\'param1Val\', param2:\'param2Val\'}","appcode":"ylxt","versioncode":"1"}';
+
+        var sign = document.getElementById("s").value;
+        var toUserId = document.getElementById("u").value;
+
+        var param = '{"sign":"'
+                + sign
+                + '","message":"测试推送内容","title":"推送标题","flag":"entertainmentSys","versionname":"v1.0","token":"7d444f84-2389-4f31-adf3-79f22dba8836","toUserId":'
+                + toUserId
+                + ',"param":"{param1:\'param1Val\', param2:\'param2Val\'}","appcode":"ylxt","versioncode":"1"}';
+
+        document.getElementById("r").innerHTML = param;
+
+        wanxiao.sendRemoteNotification(param, function (result) {
+            alert(result);
+        });
+    }
+
+    /**
+     * 插件消息推送 activity
+     */
+    function bbbb() {
+
+
+
+        //{"sign":"7682F96D","message":"测试推送内容ylxt_activity","title":"推送标题ylxt_activity",
+        //	"flag":"ylxt_activity","versionname":"v1.0","token":"9584b58c-8a5e-4a60-b5f1-da789cf9cf14",
+        //"toUserId":21626,"param":"{param1:'ylxt_activity1', param2:'ylxt_activity2'}",
+        //"appcode":"ylxt_activity","versioncode":"1"}
+
+        var sign = document.getElementById("s1").value;
+        var toUserId = document.getElementById("u1").value;
+        var param = document.getElementById("p1").value;
+
+        var param = '{"sign":"'
+                + sign
+                + '","message":"测试推送内容ylxt_activity","title":"推送标题ylxt_activity","flag":"ylxt_activity","versionname":"v1.0","token":"9584b58c-8a5e-4a60-b5f1-da789cf9cf14","toUserId":'
+                + toUserId
+                + ',"param":"'
+                + param
+                + '","appcode":"ylxt_activity","versioncode":"1"}';
+
+        document.getElementById("r1").innerHTML = param;
+
+        wanxiao.sendRemoteNotification(param, function (result) {
+            alert(result);
+        });
+
+    }
+
+
+    /**
+     * 打开聊天
+     * @param 聊天好友信息
+     */
+    function openChat() {
+        wanxiao.openChat("123", "1232", "asdfasdfasd", "ww32", function (result) {
+            alert(result);
+        });
+        //window.wanxiao_chat.executeBindMethod("getChat", '{"toId":123, "fromId":1232, "sign":"asdfasdfasd", "flag":"ww32"}');
+    }
+
+    /**
+     *打开支付收银台
+     */
+    function callGetPayWay() {
+        wanxiao.openPayWay('{"acccode":"301002","accdescrp":"充值10元","app_id":"132","gateway_id":"","gateway_type":"","merchant_olid":24,"olid":385,"order_no":"2015111300000043","sign":"424039EA66219635","total_fee":"1000","ver":"1.0"}', function (result) {
+
+            if (result != '') {
+                alert(result);
+            }
+        });
+
+    }
+</script>
+</html>
