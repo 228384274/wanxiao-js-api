@@ -5,6 +5,10 @@
 -v1.1.8 JSSDK版本支持目前玩校v3.2.7及以上版本
 -v1.1.9 JSSDK版本支持目前玩校v3.3.0及以上版本
 #
+-demo 里js_demo_new.html 是对JSSDK v1.1.9使用的例子
+-demo 里js_demo_old.html 是对JSSDK v1.1.8使用的例子
+
+#
 -功能列表
 #
 -0.0.1 getToken 获取用户信息
@@ -51,7 +55,7 @@
 #
 -0.2.2 commonCallback  统一回调接口  (私有)
 #
--0.2.3 setMenu1        设置menu扩展接口           ------玩校v3.2.7
+-0.2.3 setMenu1        设置menu扩展接口           ------JSSDKV1.1.8 玩校v3.2.7
 #
 -0.2.4 showMenu        显示menu
 #
@@ -61,4 +65,4 @@
 #
 -0.2.7 getConfig       获取配置项 (私有)
 #
--0.2.8 NCPStartTalkFun 调用直播   (私有)          -------玩校v3.3.0 
+-0.2.8 NCPStartTalkFun 调用直播   (私有)          -------JSSDKV1.1.9 玩校v3.3.0 
