@@ -256,25 +256,34 @@
         }
 
 
+        var menu1={"id":"10","title":"分享微信","icon":"http://3.kimimagic01.sinaapp.com/password.png"};
+        var menu2={"id":"20","title":"分享朋友圈","icon":"http://3.kimimagic01.sinaapp.com/record.png"};
+        var menu3={"id":"30","title":"分享同学圈","icon":"http://3.kimimagic01.sinaapp.com/78@3x.png"};
+        
+
         function createMenuNew(){
             var menu={"data":[menu1,menu2,menu3]};
             wanxiao.setMenu1(menu,function(id){
                 alert(id);
+               
+                switch (parseInt(id)) 
+                {
+                    case 10:
+
+                        ShareWeixin();
+                        break;
+                    case 20:
+                        ShareWeixinCircle();
+                        break;
+                    case 30:
+                        ShareWanXiaoCircle();
+                        break;
+                    default:
+                      	break;
+                
+                }
             });
         }
-
-        var menu1={"id":"10","title":"百度","icon":"http://3.kimimagic01.sinaapp.com/password.png"};
-        var menu2={"id":"20","title":"网易","icon":"http://3.kimimagic01.sinaapp.com/record.png"};
-        var menu3={"id":"30","title":"扫一扫","icon":"http://3.kimimagic01.sinaapp.com/78@3x.png"};
-        var menu3={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-        
-        var menu4={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-        var menu5={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-        var menu6={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-
-        var menu7={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-        var menu8={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
-        var menu9={"id":"30","title":"扫一扫扫一扫","icon":"http://3.kimimagic01.sinaapp.com/help.png"};
         
         function createMenu1New(){
             var menu={"data":[menu3]};
@@ -497,23 +506,23 @@
     }
 
     function ShareWeixin() {
-        wanxiao.shareTo("1", "sharetest", imagejson);
+        wanxiao.shareTo("1", "sharetest", imagejson,"http://www.baidu.com","标题测试");
     }
 
     function ShareWeixinCircle() {
-        wanxiao.shareTo("2", "sharetest", imagejson);
+        wanxiao.shareTo("2", "sharetest", imagejson,"http://www.baidu.com","标题测试");
     }
 
     function ShareWeibo() {
-        wanxiao.shareTo("3", "sharetest", imagejson);
+        wanxiao.shareTo("3", "sharetest", imagejson,"http://www.baidu.com","标题测试");
     }
 
     function ShareQQ() {
-        wanxiao.shareTo("4", "sharetest", imagejson);
+        wanxiao.shareTo("4", "sharetest", imagejson,"http://www.baidu.com","标题测试");
     }
 
     function ShareQzone() {
-        wanxiao.shareTo("5", "sharetest", imagejson);
+        wanxiao.shareTo("5", "sharetest", imagejson,"http://www.baidu.com","标题测试");
     }
 
 
