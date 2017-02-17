@@ -1,8 +1,7 @@
 ![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/JSSDK1.1.9.png)
--用完美校园app扫描上图有Demo演示
-![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/downloadApp.png)
--下载完美校园APP
 
+![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/downloadApp.png)
+-用完美校园app右上角扫描上Demo二维码演示, 下载完美校园APP二维码
 # wanxiao-js-api
 -玩校JSSDK  v1.1.8, v1.1.9版本
 -原理 web页面用js方法通过 jsbrige与原生系统进行通信,定义了一系列的原生功能列表,满足web页面使用需求.
