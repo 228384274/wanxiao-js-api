@@ -1,7 +1,7 @@
- ![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/JSSDK1.1.9.png)
-用完美校园app扫描上图有Demo演示
+![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/JSSDK1.1.9.png)
+-用完美校园app扫描上图有Demo演示
 ![image](https://github.com/liuchang8877/wanxiao-js-api/blob/master/downloadApp.png)
-下载完美校园APP
+-下载完美校园APP
 
 # wanxiao-js-api
 -玩校JSSDK  v1.1.8, v1.1.9版本
