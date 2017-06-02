@@ -1,5 +1,6 @@
 /***********************************************************************
- *
+ * v1.2.0
+ * 2017-06-02 增加获取设备信息
  *
  * v1.1.9
  * 2016-09-01 增加Hiall调用播放器 NCPStartTalkFun
@@ -788,6 +789,36 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
     }
 }
 
+/*
+ * 获取设备信息
+ * @param callback 回调函数，回调函数的参数格式为json
+ * {
+ *      "dev_name":"" ,	//设备名称
+ *      "dev_model":"" ,	//设备型号
+ *      "inner_model":"" ,	//具体型号
+ *      "sim_operator":"" ,  	//运营商
+ *      "imei":"" 		//IMEI
+ * }
+ *
+ */
+
+Wanxiao.prototype.getDeviceInfo = function (callback) {
+    if (!isIphone()) {
+        Wanxiao.prototype._getDeviceInfo = callback;
+        window.wanxiao_callback.executeBindMethod("getDeviceInfo", "wanxiao._getDeviceInfo");
+    } else {
+        
+        var postJsonObject = {
+            "parCallBack":"wanxiao._getDeviceInfo",
+            "parValue":""
+        };
+        
+        var postParams = JSON.stringify(postJsonObject);
+        
+        Wanxiao.prototype._getDeviceInfo = callback;
+        window.webkit.messageHandlers.getDeviceInfo.postMessage(postParams);
+    }
+}
 
 var wanxiao = new Wanxiao();
 
