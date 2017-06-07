@@ -797,7 +797,7 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
  *      "dev_model":"" ,	//设备型号
  *      "inner_model":"" ,	//具体型号
  *      "sim_operator":"" ,  	//运营商
- *      "imei":"" 		//IMEI
+ *      "imei":"" 		//IMEI iOS为UUID
  * }
  *
  */
@@ -805,7 +805,7 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
 Wanxiao.prototype.getDeviceInfo = function (callback) {
     if (!isIphone()) {
         Wanxiao.prototype._getDeviceInfo = callback;
-        window.wanxiao_callback.executeBindMethod("getDeviceInfo", "wanxiao._getDeviceInfo");
+        window.wanxiao_getDeviceInfo.executeBindMethod("getDeviceInfo", "wanxiao._getDeviceInfo");
     } else {
         
         var postJsonObject = {
