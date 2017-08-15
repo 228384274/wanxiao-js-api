@@ -827,10 +827,11 @@ Wanxiao.prototype.getDeviceInfo = function (callback) {
 /**
  * 设置navbar 颜色
  * @param color navbar 背景颜色 RGB十六进制值 如：ffb82f
+ * @param navbarType  light 标题和返回都用白色，normal 标题和返回 用常规的黑色和橘黄
  * @param callback 回调
  */
-Wanxiao.prototype.setNavbarColor = function (color, callback) {
-    var params_obj = {"color": color};
+Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
+    var params_obj = {"color": color,"navbarType":navbarType};
     var params = JSON.stringify(params_obj);
     if (!isIphone()) {
         Wanxiao.prototype._setNavbarColor = callback;
