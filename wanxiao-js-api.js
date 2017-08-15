@@ -1,4 +1,8 @@
 /***********************************************************************
+ * v1.2.1
+ * 2017-08-15 新增shareto类型，分享给好友信息
+ *            新增设置navbar颜色
+ *
  * v1.2.0
  * 2017-06-02 增加获取设备信息
  *
@@ -158,14 +162,14 @@ Wanxiao.prototype.cameraPhotoCallBack = function (photoBase64Str) {
  * 分享到...
  *
  * @param type
- *            分享类型：0 同学圈，1 微信， 2 微信朋友圈，3新浪微博，4 QQ，5 QQ空间
+ *            分享类型：0 同学圈，1 微信， 2 微信朋友圈，3新浪微博，4 QQ，5 QQ空间 ，6 分享好友的扩展内容
  * @param text
  *            分享的文本
  * @imagesJson 分享的照片URL数据，json格式，[{"url":"http://..."}, {"url":"http://..."}]
  *
  * @url 点击跳转url 包括LinkCardUrl
  * @title 分享的标题
- * @bbscontent linkCard分享默认传递帖子内容
+ * @bbscontent linkCard分享默认传递帖子内容 ，【type为6时为分享好友的扩展内容】
  * @shareTo 分享范围：0:公开；-1：仅同校可见；(注意，int型)
  * @linkType 0 Http跳转 1 Schema跳转
  */
@@ -817,6 +821,31 @@ Wanxiao.prototype.getDeviceInfo = function (callback) {
         
         Wanxiao.prototype._getDeviceInfo = callback;
         window.webkit.messageHandlers.getDeviceInfo.postMessage(postParams);
+    }
+}
+
+/**
+ * 设置navbar 颜色
+ * @param color navbar 背景颜色 RGB十六进制值 如：ffb82f
+ * @param callback 回调
+ */
+Wanxiao.prototype.setNavbarColor = function (color, callback) {
+    var params_obj = {"color": color};
+    var params = JSON.stringify(params_obj);
+    if (!isIphone()) {
+        Wanxiao.prototype._setNavbarColor = callback;
+        window.wanxiao_config.executeBindMethod("setNavbarColor", params);
+    } else {
+        
+        var postJsonObject = {
+            "parCallBack":"wanxiao._setNavbarColorCallback",
+            "parValue":params
+        };
+        
+        var postParams = JSON.stringify(postJsonObject);
+        
+        Wanxiao.prototype._setNavbarColorCallback = callback;
+        window.webkit.messageHandlers.setNavbarColor.postMessage(postParams);
     }
 }
 
