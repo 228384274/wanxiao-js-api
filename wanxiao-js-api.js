@@ -835,7 +835,7 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
     var params = JSON.stringify(params_obj);
     if (!isIphone()) {
         Wanxiao.prototype._setNavbarColor = callback;
-        window.wanxiao_config.executeBindMethod("setNavbarColor", params);
+        window.wanxiao_navbar.executeBindMethod("setNavbarColor", params);
     } else {
         
         var postJsonObject = {
