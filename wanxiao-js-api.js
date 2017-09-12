@@ -1,4 +1,7 @@
 /***********************************************************************
+ * v1.2.2
+ * 2017-09-12 新增虚拟键盘 setKeboard，仅供支付SDK使用
+ *
  * v1.2.1
  * 2017-08-15 新增shareto类型，分享给好友信息
  *            新增设置navbar颜色
@@ -847,6 +850,49 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
         
         Wanxiao.prototype._setNavbarColorCallback = callback;
         window.webkit.messageHandlers.setNavbarColor.postMessage(postParams);
+    }
+}
+
+/**
+ 设置虚拟键盘
+ @param operationState  show 显示，hide 隐藏，del 删除一个，clear 清空全部
+ @param maxInput  只用在show时候 添加最大输入，当输入到最大位数后自动回调加密信息,如6，8 最大输入长度
+ @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
+                     code 0  错误异常
+                     code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
+                     code 2  encryptContent 加密后的字符串
+ */
+
+Wanxiao.prototype.setKeboard = function (operationState
+                                         ,maxInput, callback) {
+    
+    var params_obj = {"operationState": operationState,"maxInput":maxInput};
+    
+    var params = JSON.stringify(params_obj);
+    
+    if (!isIphone()) {
+        
+        Wanxiao.prototype._setKeboard = callback;
+        
+        window.wanxiao_setKeboard.executeBindMethod("setKeboard", params);
+        
+    } else {
+        
+        var postJsonObject = {
+            
+            "parCallBack":"wanxiao._setKeboardCallback",
+            
+            "parValue":params
+            
+        };
+        
+        
+        var postParams = JSON.stringify(postJsonObject);
+        
+        Wanxiao.prototype._setKeboardCallback = callback;
+        
+        window.webkit.messageHandlers.setKeboard.postMessage(postParams);
+        
     }
 }
 
