@@ -1,6 +1,6 @@
 /***********************************************************************
  * v1.2.2
- * 2017-09-12 新增虚拟键盘 setKeboard，仅供支付SDK使用
+ * 2017-09-12 新增虚拟键盘 setKeyboard，仅供支付SDK使用
  *
  * v1.2.1
  * 2017-08-15 新增shareto类型，分享给好友信息
@@ -865,7 +865,7 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
 		     code 4  正常的 hide 隐藏返回
  */
 
-Wanxiao.prototype.setKeboard = function (operationState
+Wanxiao.prototype.setKeyboard = function (operationState
                                          ,maxInput, callback) {
     
     var params_obj = {"operationState": operationState,"maxInput":maxInput};
@@ -874,15 +874,15 @@ Wanxiao.prototype.setKeboard = function (operationState
     
     if (!isIphone()) {
         
-        Wanxiao.prototype._setKeboard = callback;
+        Wanxiao.prototype._setKeyboard = callback;
         
-        window.wanxiao_setKeboard.executeBindMethod("setKeboard", params);
+        window.wanxiao_setKeyboard.executeBindMethod("setKeyboard", params);
         
     } else {
         
         var postJsonObject = {
             
-            "parCallBack":"wanxiao._setKeboardCallback",
+            "parCallBack":"wanxiao._setKeyboardCallback",
             
             "parValue":params
             
@@ -890,9 +890,9 @@ Wanxiao.prototype.setKeboard = function (operationState
         
         var postParams = JSON.stringify(postJsonObject);
         
-        Wanxiao.prototype._setKeboardCallback = callback;
+        Wanxiao.prototype._setKeyboardCallback = callback;
         
-        window.webkit.messageHandlers.setKeboard.postMessage(postParams);
+        window.webkit.messageHandlers.setKeyboard.postMessage(postParams);
         
     }
 }
