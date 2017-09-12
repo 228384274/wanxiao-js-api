@@ -860,7 +860,7 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
  @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
                      code 0  错误异常 message 提示信息
                      code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
-                     code 2  encryptContent 加密后的字符串  ranking
+                     code 2  encryptContent 加密后的字符串 
  */
 
 Wanxiao.prototype.setKeboard = function (operationState
