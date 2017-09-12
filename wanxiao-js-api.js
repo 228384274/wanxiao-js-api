@@ -858,9 +858,9 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
  @param operationState  show 显示，hide 隐藏，del 删除一个，clear 清空全部
  @param maxInput  只用在show时候 添加最大输入，当输入到最大位数后自动回调加密信息,如6，8 最大输入长度
  @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
-                     code 0  错误异常
+                     code 0  错误异常 message 提示信息
                      code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
-                     code 2  encryptContent 加密后的字符串
+                     code 2  encryptContent 加密后的字符串  ranking
  */
 
 Wanxiao.prototype.setKeboard = function (operationState
@@ -885,7 +885,6 @@ Wanxiao.prototype.setKeboard = function (operationState
             "parValue":params
             
         };
-        
         
         var postParams = JSON.stringify(postJsonObject);
         
