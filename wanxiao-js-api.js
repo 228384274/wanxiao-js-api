@@ -861,6 +861,8 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
                      code 0  错误异常 message 提示信息
                      code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
                      code 2  encryptContent 加密后的字符串 
+		     code 3  正常的 show 显示返回
+		     code 4  正常的 hide 隐藏返回
  */
 
 Wanxiao.prototype.setKeboard = function (operationState
