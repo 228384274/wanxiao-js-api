@@ -855,7 +855,7 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
 
 /**
  设置虚拟键盘
- @param operationState  show 显示，hide 隐藏，del 删除一个，clear 清空全部
+ @param operationState  show 显示，hide 隐藏,clear 清空全部
  @param maxInput  只用在show时候 添加最大输入，当输入到最大位数后自动回调加密信息,如6，8 最大输入长度
  @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
                      code 0  错误异常 message 提示信息
