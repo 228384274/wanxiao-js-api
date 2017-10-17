@@ -902,6 +902,10 @@ Wanxiao.prototype.setKeyboard = function (operationState
 
 /**
  * 完美钱包支付结果回调
+ * @param code  0 支付成功  1支付失败   2支付取消  
+ * @param message 提示信息
+ * @param orderNo 订单id
+ * @totalFee  订单金额（单位：分）
  * @param callback 结果回调函数
  */
 Wanxiao.prototype.NCPWalletResult = function (code,message,orderNo,totalFee,callback) {
