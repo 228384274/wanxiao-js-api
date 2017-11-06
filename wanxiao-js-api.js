@@ -1,7 +1,4 @@
 /***********************************************************************
- * v1.2.3
- * 2017-10-16 新增钱包支付结果回调
- *
  * v1.2.2
  * 2017-09-12 新增虚拟键盘 setKeyboard，仅供支付SDK使用
  *
@@ -899,38 +896,6 @@ Wanxiao.prototype.setKeyboard = function (operationState
         
     }
 }
-
-/**
- * 完美钱包支付结果回调
- * @param code  0 支付成功  1支付失败   2支付取消  
- * @param message 提示信息
- * @param orderNo 订单id
- * @totalFee  订单金额（单位：分）
- * @param callback 结果回调函数
- */
-Wanxiao.prototype.NCPWalletResult = function (code,message,orderNo,totalFee,callback) {
-
-    var params_obj = {"code": code,"message":message,"orderNo":orderNo,"totalFee":totalFee};
-    
-    var params = JSON.stringify(params_obj);
-	
-    if (!isIphone()) {
-        Wanxiao.prototype._NCPWalletResultCallback = callback;
-        window.wanxiao_NCPWalletResult.executeBindMethod("NCPWalletResult",
-                                                     params);
-    } else {
-        
-        var postJsonObject = {
-            "parCallBack":"wanxiao._NCPWalletResultCallback",
-            "parValue":params
-        };
-        
-        var postParams = JSON.stringify(postJsonObject);
-        
-        Wanxiao.prototype._NCPWalletResultCallback = callback;
-        window.webkit.messageHandlers.NCPWalletResult.postMessage(postParams);
-    }
-};
 
 var wanxiao = new Wanxiao();
 
