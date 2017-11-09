@@ -1,4 +1,7 @@
 /***********************************************************************
+ * v1.2.3
+ * 2017-11-09 扩展获取设备信息接口
+ *
  * v1.2.2
  * 2017-09-12 新增虚拟键盘 setKeyboard，仅供支付SDK使用
  *
@@ -804,7 +807,14 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
  *      "dev_model":"" ,	//设备型号
  *      "inner_model":"" ,	//具体型号
  *      "sim_operator":"" ,  	//运营商
- *      "imei":"" 		//IMEI iOS为UUID
+ *      "imei":"", 		//IMEI iOS为UUID
+ *	"mac":"",		//mac地址仅 Android
+ *	"androidId":"",		//androidId仅 Android
+ *  	"idfv":"", 		//IDFV 仅iOS 
+ *	"idfa":"",		//IDFA 仅iOS
+ *	"manufacturer":"",	//手机制造商 OPPO/vivo/meizu/Apple
+ *	"resolution":"",	//分辨率
+ *	"dev_type":""		//设备类型，iOS 或 Android
  * }
  *
  */
