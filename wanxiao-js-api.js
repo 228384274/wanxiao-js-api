@@ -1,4 +1,8 @@
 /***********************************************************************
+ * 
+ * v1.2.4
+ * 2018-03-20 扩展扫一扫，增加手动输入入口
+ *
  * v1.2.3
  * 2017-11-09 扩展获取设备信息接口
  *
@@ -391,9 +395,11 @@ Wanxiao.prototype.setMenu = function (jsonStr, callback) {
 
 /**
  * 扫描条码
+ * @param jsonStr   {"url":"http://www.baidu.com"},如果设置
+ * url参数，显示手动输入入口，获取不到不显示入口
  * @param callback 结果回调函数
  */
-Wanxiao.prototype.scanBarcode = function (callback) {
+Wanxiao.prototype.scanBarcode = function (callback,jsonStr) {
     if (!isIphone()) {
         Wanxiao.prototype._scanBarcodeCallback = callback;
         window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
@@ -402,7 +408,7 @@ Wanxiao.prototype.scanBarcode = function (callback) {
         
         var postJsonObject = {
             "parCallBack":"wanxiao._scanBarcodeCallback",
-            "parValue":""
+            "parValue":jsonStr
         };
         
         var postParams = JSON.stringify(postJsonObject);
