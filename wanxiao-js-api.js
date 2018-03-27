@@ -401,13 +401,18 @@ Wanxiao.prototype.setMenu = function (jsonStr, callback) {
  */
 Wanxiao.prototype.scanBarcode = function (callback,jsonStr) {
 	
-    var params = JSON.stringify(jsonStr);
-	
     if (!isIphone()) {
 	    
+	var postJsonObject = {
+            "parCallBack":"wanxiao._scanBarcodeCallback",
+            "parValue":jsonStr
+        };
+        
+        var postParams = JSON.stringify(postJsonObject)
+        
         Wanxiao.prototype._scanBarcodeCallback = callback;
         window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
-            params);
+            postParams);
 	    
     } else {
         
