@@ -400,10 +400,13 @@ Wanxiao.prototype.setMenu = function (jsonStr, callback) {
  * @param callback 结果回调函数
  */
 Wanxiao.prototype.scanBarcode = function (callback,jsonStr) {
+	
+    var params = JSON.stringify(jsonStr);
+	
     if (!isIphone()) {
         Wanxiao.prototype._scanBarcodeCallback = callback;
         window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
-                                                     "wanxiao._scanBarcodeCallback");
+                                                     params);
     } else {
         
         var postJsonObject = {
