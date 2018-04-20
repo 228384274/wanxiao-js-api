@@ -1,7 +1,7 @@
 /***********************************************************************
  * v1.2.5
- * 2018-04-20 扫一扫进行新老版本适配
- * 
+ * 2018-04-20 扩展扫一扫，适配新老版本
+ *
  * v1.2.4
  * 2018-03-20 扩展扫一扫，增加手动输入入口
  *
@@ -407,6 +407,7 @@ Wanxiao.prototype.scanBarcode = function (callback,jsonStr) {
 
     if (!isIphone()) {
         
+        //以4.4.0版本为分界线，做新老版本适配
         if(Version(NCPVersion(),'4.3.9'))
         {
         
@@ -990,7 +991,7 @@ function NCPVersion()
                 
 function Version(curV,reqV){
                     
-    var arr1=curV.split('.');
+	var arr1=curV.split('.');
     var arr2=reqV.split('.');
     //将两个版本号拆成数字 
     var minL= Math.min(arr1.length,arr2.length);  
@@ -1007,11 +1008,14 @@ function Version(curV,reqV){
        }
                     
        if (diff>0) {
-            console.log('新版本')
+           //console.log('新版本')
+           return true;
        }else if (diff==0) {
-             console.log('稳定版')
+           // console.log('稳定版')
+           return false;
        }else{
-             console.log('旧版本')
+           //console.log('旧版本')
+           return false;
        }
 }
    
