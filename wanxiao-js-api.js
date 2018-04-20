@@ -1,4 +1,6 @@
 /***********************************************************************
+ * v1.2.5
+ * 2018-04-20 扫一扫进行新老版本适配
  * 
  * v1.2.4
  * 2018-03-20 扩展扫一扫，增加手动输入入口
@@ -64,7 +66,7 @@
  ***********************************************************************/
 
 function Wanxiao() {
-    
+
 }
 
 /**
@@ -75,17 +77,18 @@ function Wanxiao() {
  * });
  */
 Wanxiao.prototype.getToken = function (callback) {
+
     if (!isIphone()) {
         callback(window.wanxiao_authen.executeBindMethod("getToken", null));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getTokenCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getTokenCallback = callback;
         window.webkit.messageHandlers.getToken.postMessage(postParams);
     }
@@ -99,14 +102,14 @@ Wanxiao.prototype.getUserJsonValue = function (callback) {
         callback(window.wanxiao_authen.executeBindMethod("getUserJsonValue",
                                                          null));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getUserJsonValueCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getUserJsonValueCallback = callback;
         window.webkit.messageHandlers.getUserJsonValue.postMessage(postParams);
     }
@@ -122,14 +125,14 @@ Wanxiao.prototype.sendRemoteNotification = function (jsondata, callback) {
         callback(window.wanxiao_push.executeBindMethod(
                                                        "sendRemoteNotification", jsondata));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._sendRemoteNotificationCallback",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._sendRemoteNotificationCallback = callback;
         window.webkit.messageHandlers.sendRemoteNotification.postMessage(postParams);
     }
@@ -149,14 +152,14 @@ Wanxiao.prototype.openCamera = function (jsondata) {
     if (!isIphone()) {
         window.wanxiao_camera.executeBindMethod("getCameraPhoto", jsondata);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao.cameraPhotoCallBack",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.openCamera.postMessage(postParams);
     }
 };
@@ -164,7 +167,7 @@ Wanxiao.prototype.openCamera = function (jsondata) {
 // APP回调该方法，并传入图片字节字符串的base64编码数据
 // 该方法由第三方调用者覆盖。
 Wanxiao.prototype.cameraPhotoCallBack = function (photoBase64Str) {
-    
+
 };
 
 
@@ -199,14 +202,14 @@ Wanxiao.prototype.shareTo = function (type, text, imagesJson, url, title, bbscon
     if (!isIphone()) {
         window.wanxiao_share.executeBindMethod("shareTo", params);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.shareTo.postMessage(postParams);
     }
 };
@@ -224,17 +227,17 @@ Wanxiao.prototype.getCredits = function (jsondata, callback) {
         callback(window.wanxiao_credits.executeBindMethod("getCredits",
                                                           jsondata));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getCreditsCallback",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getCreditsCallback = callback;
         window.webkit.messageHandlers.getCredits.postMessage(postParams);
-        
+
     }
 };
 
@@ -251,17 +254,17 @@ Wanxiao.prototype.addCredits = function (jsondata, callback) {
         callback(window.wanxiao_credits.executeBindMethod("addCredits",
                                                           jsondata));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._addCreditsCallback",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._addCreditsCallback = callback;
         window.webkit.messageHandlers.addCredits.postMessage(postParams);
-        
+
     }
 };
 
@@ -276,14 +279,14 @@ Wanxiao.prototype.reduceCredits = function (jsondata, callback) {
         callback(window.wanxiao_credits.executeBindMethod("reduceCredits",
                                                           jsondata));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._reduceCreditsCallback",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._reduceCreditsCallback = callback;
         window.webkit.messageHandlers.reduceCredits.postMessage(postParams);
     }
@@ -311,14 +314,14 @@ Wanxiao.prototype.openChat = function (toId, fromId, sign, flag, callback) {
     if (!isIphone()) {
         callback(window.wanxiao_chat.executeBindMethod("getChat", params));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._openChatCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._openChatCallback = callback
         window.webkit.messageHandlers.openChat.postMessage(postParams);
     }
@@ -330,7 +333,7 @@ Wanxiao.prototype.openChat = function (toId, fromId, sign, flag, callback) {
  *
  */
 Wanxiao.prototype.openPayWay = function (order_param, callback) {
-    
+
     var JsonObject = {
         "order_param": order_param
     };
@@ -338,14 +341,14 @@ Wanxiao.prototype.openPayWay = function (order_param, callback) {
     if (!isIphone()) {
         callback(window.wanxiao_payway.executeBindMethod("getPayWay", params));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._openPayWayCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._openPayWayCallback = callback;
         window.webkit.messageHandlers.openPayWay.postMessage(postParams);
     }
@@ -358,12 +361,12 @@ Wanxiao.prototype.closeAppWeb = function () {
     if (!isIphone()) {
         window.wanxiao_default.executeBindMethod("closeActivity", null);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
         window.webkit.messageHandlers.closeAppWeb.postMessage(postParams);
     }
@@ -380,14 +383,14 @@ Wanxiao.prototype.setMenu = function (jsonStr, callback) {
     if (!isIphone()) {
         callback(window.wanxiao_menu.executeBindMethod("setMenu", jsonStr));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._setMenuCallback",
             "parValue":jsonStr
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._setMenuCallback = callback;
         window.webkit.messageHandlers.setMenu.postMessage(postParams);
     }
@@ -400,29 +403,40 @@ Wanxiao.prototype.setMenu = function (jsonStr, callback) {
  * @param callback 结果回调函数
  */
 Wanxiao.prototype.scanBarcode = function (callback,jsonStr) {
-	
+
+
     if (!isIphone()) {
-	    
-	var postJsonObject = {
+        
+        if(Version(NCPVersion(),'4.3.9'))
+        {
+        
+            var postJsonObject = {
             "parCallBack":"wanxiao._scanBarcodeCallback",
             "parValue":jsonStr
-        };
-        
-        var postParams = JSON.stringify(postJsonObject)
-        
-        Wanxiao.prototype._scanBarcodeCallback = callback;
-        window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
+        	};
+
+        	var postParams = JSON.stringify(postJsonObject)
+
+        	Wanxiao.prototype._scanBarcodeCallback = callback;
+        	window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
             postParams);
-	    
+        }
+        else
+        {
+        	Wanxiao.prototype._scanBarcodeCallback = callback;
+        	window.wanxiao_scanBarcode.executeBindMethod("scanBarcode",
+            "wanxiao._scanBarcodeCallback");
+        }
+
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._scanBarcodeCallback",
             "parValue":jsonStr
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._scanBarcodeCallback = callback;
         window.webkit.messageHandlers.scanBarcode.postMessage(postParams);
     }
@@ -437,14 +451,14 @@ Wanxiao.prototype.shake = function (callback) {
         Wanxiao.prototype._shakeCallback = callback;
         window.wanxiao_shake.executeBindMethod("shake", "wanxiao._shakeCallback");
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._shakeCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._shakeCallback = callback;
         window.webkit.messageHandlers.shake.postMessage(postParams);
     }
@@ -461,14 +475,14 @@ Wanxiao.prototype.getLocation = function (callback) {
         window.wanxiao_Location.executeBindMethod("getLocaltionPosition",
                                                   "wanxiao._locationCallback");
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getLocationCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getLocationCallback = callback;
         window.webkit.messageHandlers.getLocation.postMessage(postParams);
     }
@@ -487,14 +501,14 @@ Wanxiao.prototype.appChannel = function (method, jsonData, callback) {
         var params = JSON.stringify(JsonObject);
         callback(window.wanxiao_command.executeBindMethod("appchannel", params));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._appChannelCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._appChannelCallback = callback;
         window.webkit.messageHandlers.appChannel.postMessage(postParams);
     }
@@ -504,7 +518,7 @@ Wanxiao.prototype.appChannel = function (method, jsonData, callback) {
  * 获取用户头像 返回值：成功返回头像url,失败返回空字符串
  */
 Wanxiao.prototype.getUserGravatar = function (callback) {
-    
+
     wanxiao.getUserJsonValue(function (result) {
                              if (result == null || result == undefined || result == '') {
                              callback("");
@@ -514,7 +528,7 @@ Wanxiao.prototype.getUserGravatar = function (callback) {
                              callback(url);
                              }
                              });
-    
+
 }
 
 /*
@@ -529,18 +543,18 @@ Wanxiao.prototype.openImageView = function (imageUrls, index, callback) {
         "index": index
     };
     var params = JSON.stringify(JsonObject);
-    
+
     if (!isIphone()) {
         callback(window.wanxiao_imageView.executeBindMethod("imageView", params));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._openImageViewCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._openImageViewCallback = callback;
         window.webkit.messageHandlers.openImageView.postMessage(postParams);
     }
@@ -554,14 +568,14 @@ Wanxiao.prototype.getNetworkStatus = function (callback) {
     if (!isIphone()) {
         callback(window.wanxiao_network.executeBindMethod("getNetwrokStatus", null));
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getNetworkStatusCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getNetworkStatusCallback = callback;
         window.webkit.messageHandlers.getNetworkStatus.postMessage(postParams);
     }
@@ -577,14 +591,14 @@ Wanxiao.prototype.selectImage = function (callback) {
         Wanxiao.prototype._selectImageCallback = callback;
         window.wanxiao_selectImage.executeBindMethod("selectImage", "wanxiao._selectImageCallback");
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._selectImageCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._selectImageCallback = callback;
         window.webkit.messageHandlers.selectImage.postMessage(postParams);
     }
@@ -605,14 +619,14 @@ Wanxiao.prototype.selectImage1 = function (jsondata, callback) {
         Wanxiao.prototype._selectImage1Callback = callback;
         window.wanxiao_selectImage1.executeBindMethod("selectImage1", jsondata);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._selectImage1Callback",
             "parValue":jsondata
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._selectImage1Callback = callback;
         window.webkit.messageHandlers.selectImage1.postMessage(postParams);
     }
@@ -624,26 +638,26 @@ Wanxiao.prototype.selectImage1 = function (jsondata, callback) {
  *
  */
 Wanxiao.prototype.setTitle = function (title, callback) {
-    
+
     var JsonObject = {
         "title": title
     };
     var params = JSON.stringify(JsonObject);
-    
+
     if (!isIphone()) {
         window.wanxiao_title.executeBindMethod("setTitle", title);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._setTitleCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._setTitleCallback = callback;
         window.webkit.messageHandlers.setTitle.postMessage(postParams);
-        
+
     }
 }
 
@@ -661,17 +675,17 @@ Wanxiao.prototype.commonCallback = function (callback) {
         Wanxiao.prototype._commonCallback = callback;
         window.wanxiao_callback.executeBindMethod("commonCallback", "wanxiao._commonCallback");
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._commonCallback",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._commonCallback = callback;
         window.webkit.messageHandlers.commonCallback.postMessage(postParams);
-        
+
     }
 }
 
@@ -689,14 +703,14 @@ Wanxiao.prototype.setMenu1 = function(jsonData,callback){
         Wanxiao.prototype._setMenu1 = callback;
         window.wanxiao_menu1.executeBindMethod("setMenu1", params);
     }else{
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._setMenu1Callback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._setMenu1Callback = callback;
         window.webkit.messageHandlers.setMenu1.postMessage(postParams);
     }
@@ -709,15 +723,15 @@ Wanxiao.prototype.showMenu = function(){
     if (!isIphone()) {
         window.wanxiao_menu.executeBindMethod("showMenu",null);
     }else{
-        
-        
+
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.showMenu.postMessage(postParams);
     }
 }
@@ -729,14 +743,14 @@ Wanxiao.prototype.hideMenu = function(){
     if (!isIphone()) {
         window.wanxiao_menu.executeBindMethod("hideMenu",null);
     }else{
-        
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.hideMenu.postMessage(postParams);
     }
 }
@@ -753,14 +767,14 @@ Wanxiao.prototype.setConfig = function (key, value) {
     if (!isIphone()) {
         window.wanxiao_config.executeBindMethod("setConfig", params);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.setConfig.postMessage(postParams);
     }
 }
@@ -777,14 +791,14 @@ Wanxiao.prototype.getConfig = function (key, callback) {
         Wanxiao.prototype._getConfig = callback;
         window.wanxiao_config.executeBindMethod("getConfig", params);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getConfigCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getConfigCallback = callback;
         window.webkit.messageHandlers.getConfig.postMessage(postParams);
     }
@@ -793,24 +807,24 @@ Wanxiao.prototype.getConfig = function (key, callback) {
 /**
  * 获取配置项
  * @param type 类型 1-直播  2-点播
-		  data  
+		  data
 		  access_token 房间秘钥
 		  playbackID   回放Id,仅点播模式需要
  * @param callback 回调 无
  */
 Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
-	
+
     var params_obj = {"type": type,"data":{"access_token":access_token,"playbackID":playbackID}};
     var params = JSON.stringify(params_obj);
-	
+
     if (isIphone()) {
-		
+
         var postJsonObject = {
             "parCallBack":"",
             "parValue":params
         };
         var postParams = JSON.stringify(postJsonObject);
-        
+
         window.webkit.messageHandlers.NCPStartTalkFun.postMessage(postParams);
     }
 }
@@ -826,7 +840,7 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
  *      "imei":"", 		//IMEI iOS为UUID
  *	"mac":"",		//mac地址仅 Android
  *	"androidId":"",		//androidId仅 Android
- *  	"idfv":"", 		//IDFV 仅iOS 
+ *  	"idfv":"", 		//IDFV 仅iOS
  *	"idfa":"",		//IDFA 仅iOS
  *	"manufacturer":"",	//手机制造商 OPPO/vivo/meizu/Apple
  *	"resolution":"",	//分辨率
@@ -840,14 +854,14 @@ Wanxiao.prototype.getDeviceInfo = function (callback) {
         Wanxiao.prototype._getDeviceInfo = callback;
         window.wanxiao_getDeviceInfo.executeBindMethod("getDeviceInfo", "wanxiao._getDeviceInfo");
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._getDeviceInfo",
             "parValue":""
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._getDeviceInfo = callback;
         window.webkit.messageHandlers.getDeviceInfo.postMessage(postParams);
     }
@@ -866,14 +880,14 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
         Wanxiao.prototype._setNavbarColor = callback;
         window.wanxiao_navbar.executeBindMethod("setNavbarColor", params);
     } else {
-        
+
         var postJsonObject = {
             "parCallBack":"wanxiao._setNavbarColorCallback",
             "parValue":params
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._setNavbarColorCallback = callback;
         window.webkit.messageHandlers.setNavbarColor.postMessage(postParams);
     }
@@ -886,40 +900,40 @@ Wanxiao.prototype.setNavbarColor = function (color,navbarType, callback) {
  @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
                      code 0  错误异常 message 提示信息
                      code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
-                     code 2  encryptContent 加密后的字符串 
+                     code 2  encryptContent 加密后的字符串
 		     code 3  正常的 show 显示返回
 		     code 4  正常的 hide 隐藏返回
  */
 
 Wanxiao.prototype.setKeyboard = function (operationState
                                          ,maxInput, callback) {
-    
+
     var params_obj = {"operationState": operationState,"maxInput":maxInput};
-    
+
     var params = JSON.stringify(params_obj);
-    
+
     if (!isIphone()) {
-        
+
         Wanxiao.prototype._setKeyboard = callback;
-        
+
         window.wanxiao_setKeyboard.executeBindMethod("setKeyboard", params);
-        
+
     } else {
-        
+
         var postJsonObject = {
-            
+
             "parCallBack":"wanxiao._setKeyboardCallback",
-            
+
             "parValue":params
-            
+
         };
-        
+
         var postParams = JSON.stringify(postJsonObject);
-        
+
         Wanxiao.prototype._setKeyboardCallback = callback;
-        
+
         window.webkit.messageHandlers.setKeyboard.postMessage(postParams);
-        
+
     }
 }
 
@@ -940,21 +954,64 @@ versions: function () {
     mobile: !!u.match(/AppleWebKit.*Mobile.*/)
         || !!u.match(/AppleWebKit/), // 是否为移动终端
     ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), // ios终端
-                   android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, // android终端或者uc浏览器
-                   iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, // 是否为iPhone或者QQHD浏览器
-                   iPad: u.indexOf('iPad') > -1, // 是否iPad
-                   webApp: u.indexOf('Safari') == -1
-                   // 是否web应该程序，没有头部与底部
-                   };
-                   }(),
-                   language: (navigator.browserLanguage || navigator.language).toLowerCase()
-                   }
-                   
-                   function isIphone() {
-                   if (browser.versions.ios || browser.versions.iPhone
+    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, // android终端或者uc浏览器
+    iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, // 是否为iPhone或者QQHD浏览器
+    iPad: u.indexOf('iPad') > -1, // 是否iPad
+    webApp: u.indexOf('Safari') == -1,
+    // 是否web应该程序，没有头部与底部
+    wanxiao:u.match(/Wanxiao\/([\d\.]+)/i)?u.match(/Wanxiao\/([\d\.]+)/i):'0.0.0'
+    };
+    }(),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+function isIphone() {
+    if (browser.versions.ios || browser.versions.iPhone
                        || browser.versions.iPad) {
-                   return true;
-                   } else {
-                   return false;
-                   }
-                   }
+        return true;
+        } else {
+        return false;
+      }
+}
+
+//获取UA中完美校园版本
+function NCPVersion()
+{
+    return browser.versions.wanxiao[1];
+}
+
+/* 
+ * JavaScript实现版本号比较
+* 传入两个字符串，当前版本号：curV；比较版本号：reqV 
+* 调用方法举例：Version('5.12.3','5.12.2')，将返回true
+*/
+                
+//Version('5.12.3','5.12.2')
+                
+function Version(curV,reqV){
+                    
+    var arr1=curV.split('.');
+    var arr2=reqV.split('.');
+    //将两个版本号拆成数字 
+    var minL= Math.min(arr1.length,arr2.length);  
+    var pos=0;        //当前比较位
+    var diff=0;        //当前为位比较是否相等
+                    
+    //逐个比较如果当前位相等则继续比较下一位
+    while(pos<minL){
+       diff=parseInt(arr1[pos])-parseInt(arr2[pos]);  
+       if(diff!=0){  
+            break;  
+       } 
+            pos++;                  
+       }
+                    
+       if (diff>0) {
+            console.log('新版本')
+       }else if (diff==0) {
+             console.log('稳定版')
+       }else{
+             console.log('旧版本')
+       }
+}
+   
