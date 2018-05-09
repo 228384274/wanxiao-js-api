@@ -247,7 +247,7 @@ Wanxiao.prototype.shareImage = function (shareTo, image, callback) {
         Wanxiao.prototype._shareImageCallback = callback;
         var postParams = JSON.stringify(postJsonObject);
 
-        window.webkit.messageHandlers.shareTo.postMessage(postParams);
+        window.webkit.messageHandlers.shareImage.postMessage(postParams);
     }
 };
 
