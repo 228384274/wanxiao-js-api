@@ -1,6 +1,6 @@
 /***********************************************************************
  * v1.2.6
- * 2018-05-09 新增分享图片
+ * 2018-05-09 新增分享图片shareImage,getDeviceInfo 增加返回本机ip地址
  *
  * v1.2.5
  * 2018-04-20 扩展扫一扫，适配新老版本
@@ -882,7 +882,8 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
  *	"idfa":"",		//IDFA 仅iOS
  *	"manufacturer":"",	//手机制造商 OPPO/vivo/meizu/Apple
  *	"resolution":"",	//分辨率
- *	"dev_type":""		//设备类型，iOS 或 Android
+ *	"dev_type":"",		//设备类型，iOS 或 Android
+ * 	"dev_ip":""		//设备本机ip
  * }
  *
  */
