@@ -225,7 +225,7 @@ Wanxiao.prototype.shareTo = function (type, text, imagesJson, url, title, bbscon
  * @param image
  *             分享图片信息，以http或https开头的为图片url， 或是以base64传输，客户端做兼容
  *
- * @callback 0 成功 1 失败
+ * @callback 1 成功 0 失败
  */
 Wanxiao.prototype.shareImage = function (shareTo, image, callback) {
     var JsonObject = {
