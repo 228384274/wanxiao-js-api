@@ -231,7 +231,7 @@ Wanxiao.prototype.shareImage = function (shareTo, image, callback) {
     var JsonObject = {
         "shareTo": shareTo,
         "image": image,
-        "parCallBack":"wanxiao._shareImage"
+        "callback":"wanxiao._shareImage"
     };
     var params = JSON.stringify(JsonObject);
     if (!isIphone()) {
