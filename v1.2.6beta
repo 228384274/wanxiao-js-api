@@ -979,7 +979,7 @@ Wanxiao.prototype.setKeyboard = function (operationState
 
 /**
  * 打开新的webview
- * @param url  1、需要打开的url地址,若地址带参数需要进行urlencode编码
+ * @param url  1、需要打开的url地址
  	       2、或是完美校园内部scheme地址
 	       
  * @param type  入参'slide'侧滑
