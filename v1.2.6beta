@@ -986,11 +986,11 @@ Wanxiao.prototype.setKeyboard = function (operationState
  		'pop' 底部弹出
  */
 Wanxiao.prototype.openNewWebview = function (url,type) {
-    var params_obj = {"url": url,"pop":pop};
+    var params_obj = {"url": url,"type":type};
     var params = JSON.stringify(params_obj);
     if (!isIphone()) {
         //Wanxiao.prototype._setNavbarColor = callback;
-        window.wanxiao_navbar.executeBindMethod("openNewWebview", params);
+        window.wanxiao_openNewWebview.executeBindMethod("openNewWebview", params);
     } else {
 
         var postJsonObject = {
