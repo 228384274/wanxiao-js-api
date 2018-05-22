@@ -1,5 +1,6 @@
 /***********************************************************************
  * v1.2.6
+ * 2018-05-22 新增打开新webview方法 openNewWebview
  * 2018-05-09 新增分享图片shareImage,getDeviceInfo 增加返回本机ip地址
  *
  * v1.2.5
@@ -882,8 +883,8 @@ Wanxiao.prototype.NCPStartTalkFun = function (type,access_token,playbackID) {
  *	"idfa":"",		//IDFA 仅iOS
  *	"manufacturer":"",	//手机制造商 OPPO/vivo/meizu/Apple
  *	"resolution":"",	//分辨率
- *	"dev_type":"",		//设备类型，iOS 或 Android
- * 	"dev_ip":""		//设备本机ip
+ *	"dev_type":""		//设备类型，iOS 或 Android
+ * 	//"dev_ip":""		//设备本机ip
  * }
  *
  */
@@ -973,6 +974,34 @@ Wanxiao.prototype.setKeyboard = function (operationState
 
         window.webkit.messageHandlers.setKeyboard.postMessage(postParams);
 
+    }
+}
+
+/**
+ * 打开新的webview
+ * @param url  1、需要打开的url地址,若地址带参数需要进行urlencode编码
+ 	       2、或是完美校园内部scheme地址
+	       
+ * @param type  入参'slide'侧滑
+ 		'pop' 底部弹出
+ */
+Wanxiao.prototype.openNewWebview = function (url,type) {
+    var params_obj = {"url": url,"pop":pop};
+    var params = JSON.stringify(params_obj);
+    if (!isIphone()) {
+        //Wanxiao.prototype._setNavbarColor = callback;
+        window.wanxiao_navbar.executeBindMethod("openNewWebview", params);
+    } else {
+
+        var postJsonObject = {
+            "parCallBack":"",
+            "parValue":params
+        };
+
+        var postParams = JSON.stringify(postJsonObject);
+
+        //Wanxiao.prototype._setNavbarColorCallback = callback;
+        window.webkit.messageHandlers.openNewWebview.postMessage(postParams);
     }
 }
 
