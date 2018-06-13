@@ -1021,7 +1021,7 @@ Wanxiao.prototype.eventDriven = function (eventTag,dataInfo,callback) {
    var JsonObject = {
         "eventTag": eventTag,
         "dataInfo": dataInfo,
-        "callback": callback
+        "callback": "wanxiao._eventDriven"
     };
     var params = JSON.stringify(JsonObject);
     
