@@ -1018,8 +1018,13 @@ Wanxiao.prototype.openNewWebview = function (url,type) {
  * @param callback  回调
  */
 Wanxiao.prototype.eventDriven = function (eventTag,dataInfo,callback) {
-    var params_obj = {"eventTag": eventTag,"dataInfo":dataInfo,"callback":callback};
-    var params = JSON.stringify(params_obj);
+   var JsonObject = {
+        "eventTag": eventTag,
+        "dataInfo": dataInfo,
+        "callback": callback
+    };
+    var params = JSON.stringify(JsonObject);
+    
     if (!isIphone()) {
         Wanxiao.prototype._eventDriven = callback;
         window.wanxiao_eventDriven.executeBindMethod("eventDriven", params);
