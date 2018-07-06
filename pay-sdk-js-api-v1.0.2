@@ -1,0 +1,283 @@
+/***********************************************************************
+ * 2018-07-06  1.0.2 新增NCPCommonEcardPayResult 统一结果回调
+ * 2017-12-01  1.0.1 新增虚拟卡支付结果回调NCPVirtualEcardPayResult
+ ***********************************************************************/
+
+function NCPPaySDK() {
+
+}
+
+/**
+ * 打开相机
+ * </p>
+ * isCrop 是否裁剪: 0、不剪切, 1、剪切 ratio 缩放的高宽比例值，浮点类型(仅支持小数点内2位)；如：2 = 高2，宽1
+ *
+ * @param jsondata =
+ *            {"isCrop":"0、不剪切, 1、剪切",
+ *             "ratio":"缩放的高宽比例值，浮点类型；如：2 = 高2，宽1",
+ *             "action":"动作：0（默认，弹窗选择），1直接打开系统相册，2直接打开拍照" }
+ *
+ * @param callback  function(photoBase64Str)
+ */
+NCPPaySDK.prototype.openCamera = function (jsondata, callback) {
+
+    var postJsonObject = {
+        "parCallBack": "ncpPaySdk._cameraPhotoCallBack",
+        "parValue": jsondata
+    };
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._cameraPhotoCallBack = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_camera.executeBindMethod("getCameraPhoto", postParams);
+    } else {
+        window.webkit.messageHandlers.openCamera.postMessage(postParams);
+    }
+};
+
+/*
+ * 设置title
+ * @param title 标题
+ *
+ */
+NCPPaySDK.prototype.setTitle = function (title, callback) {
+
+    var JsonObject = {
+        "title": title
+    };
+    var params = JSON.stringify(JsonObject);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._setTitleCallback",
+        "parValue":params
+    };
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._setTitleCallback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_title.executeBindMethod("setTitle", postParams);
+    } else {
+        window.webkit.messageHandlers.setTitle.postMessage(postParams);
+    }
+}
+
+/**
+ * 设置menu
+ * @param jsonData
+ *  例如： {"data": [{"id":"1","title":"百度","icon":"http://www.baidu.com/favicon.ico"},
+ *         {"id":"2","title":"网易","icon":"http://www.163.com/favicon.ico"},
+ *         {"id":"3","title":"IT之家","icon":"http://www.ithome.com/favicon.ico"},……]}
+ * @param callback  回调    function(id)  //点击项的id
+ */
+NCPPaySDK.prototype.setMenu1 = function(jsonData,callback){
+    var params = JSON.stringify(jsonData);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._setMenu1Callback",
+        "parValue":params
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._setMenu1Callback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_menu1.executeBindMethod("setMenu1", postParams);
+    }else{
+        window.webkit.messageHandlers.setMenu1.postMessage(postParams);
+    }
+}
+
+/**
+ * 显示menu
+ */
+NCPPaySDK.prototype.showMenu = function(){
+    var postJsonObject = {
+        "parCallBack":"",
+        "parValue":""
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+
+    if (!isIphone()) {
+        window.ncpPaySdk_menu.executeBindMethod("showMenu",postParams);
+    }else{
+        window.webkit.messageHandlers.showMenu.postMessage(postParams);
+    }
+}
+
+/**
+ * 隐藏menu
+ */
+NCPPaySDK.prototype.hideMenu = function(){
+
+    var postJsonObject = {
+        "parCallBack":"",
+        "parValue":""
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+
+    if (!isIphone()) {
+        window.ncpPaySdk_menu.executeBindMethod("hideMenu",postParams);
+    }else{
+        window.webkit.messageHandlers.hideMenu.postMessage(postParams);
+    }
+}
+
+/**
+ 设置虚拟键盘
+ @param operationState  show 显示，hide 隐藏,clear 清空全部
+ @param maxInput  只用在show时候 添加最大输入，当输入到最大位数后自动回调加密信息,如6，8 最大输入长度
+ @param callback  回调 {"code":"","message":"","data":{"ranking":"","length":"","encryptContent":""}}
+ code 0  错误异常 message 提示信息
+ code 1  length 返回当前输入的个数 如 1，3，4，ranking 回调的顺序数如0，1，2，3
+ code 2  encryptContent 加密后的字符串
+ code 3  正常的 show 显示返回
+ code 4  正常的 hide 隐藏返回
+ */
+
+NCPPaySDK.prototype.setKeyboard = function (operationState ,maxInput, callback) {
+    var params_obj = {"operationState": operationState,"maxInput":maxInput};
+    var params = JSON.stringify(params_obj);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._setKeyboardCallback",
+        "parValue":params
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+    NCPPaySDK.prototype._setKeyboardCallback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_setKeyboard.executeBindMethod("setKeyboard", postParams);
+    } else {
+        window.webkit.messageHandlers.setKeyboard.postMessage(postParams);
+    }
+}
+
+/**
+ * 完美钱包支付结果回调
+ * @param code  SUCCESS  支付成功
+ *              WAIT_BUYER_PAY：支付中
+ *              BALANCE_NOT_ENOUGH：余额不足
+ * @param orderNo 订单id
+ * @param callback 结果回调函数
+ */
+NCPPaySDK.prototype.NCPWalletResult = function (code,orderNo,callback) {
+
+    var params_obj = {"code": code, "orderNo":orderNo};
+    var params = JSON.stringify(params_obj);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._NCPWalletResultCallback",
+        "parValue":params
+    };
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._NCPWalletResultCallback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_NCPWalletResult.executeBindMethod("NCPWalletResult", postParams);
+    } else {
+        window.webkit.messageHandlers.NCPWalletResult.postMessage(postParams);
+    }
+};
+
+/**
+ * 虚拟卡支付结果回调
+ * @param code  SUCCESS  支付成功
+ *              WAIT_BUYER_PAY：支付中
+ *              BALANCE_NOT_ENOUGH：余额不足
+ * @param orderNo 订单id
+ * @param callback 结果回调函数
+ */
+NCPPaySDK.prototype.NCPVirtualEcardPayResult = function (code,orderNo,callback) {
+
+    var params_obj = {"code": code, "orderNo":orderNo};
+    var params = JSON.stringify(params_obj);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._NCPVirtualEcardPayResultCallback",
+        "parValue":params
+    };
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._NCPVirtualEcardPayResultCallback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_NCPVirtualEcardPayResult.executeBindMethod("NCPVirtualEcardPayResult", postParams);
+    } else {
+        window.webkit.messageHandlers.NCPVirtualEcardPayResult.postMessage(postParams);
+    }
+};
+
+/**
+ * 统一结果回调
+ * @param code  SUCCESS  支付成功
+ *              WAIT_BUYER_PAY  支付中
+ *              BALANCE_NOT_ENOUGH  余额不足
+                ERROR               支付失败
+ * @param paywayID 支付方式ID
+
+ * @param orderNo  订单id
+ * @param callback 结果回调函数
+ */
+NCPPaySDK.prototype.NCPCommonEcardPayResult = function (code,paywayID,orderNo,callback) {
+
+    var params_obj = {"code": code,"paywayID":paywayID,"orderNo":orderNo};
+    var params = JSON.stringify(params_obj);
+
+    var postJsonObject = {
+        "parCallBack":"ncpPaySdk._NCPCommonEcardPayResultCallback",
+        "parValue":params
+    };
+    var postParams = JSON.stringify(postJsonObject);
+
+    NCPPaySDK.prototype._NCPCommonEcardPayResultCallback = callback;
+
+    if (!isIphone()) {
+        window.ncpPaySdk_NCPCommonEcardPayResult.executeBindMethod("NCPCommonEcardPayResult", postParams);
+    } else {
+        window.webkit.messageHandlers.NCPCommonEcardPayResult.postMessage(postParams);
+    }
+};
+
+
+var ncpPaySdk = new NCPPaySDK();
+
+/*
+ * 智能机浏览器版本信息:
+ *
+ */
+var browser = {
+versions: function () {
+    var u = navigator.userAgent, app = navigator.appVersion;
+    return {// 移动终端浏览器版本信息
+    trident: u.indexOf('Trident') > -1, // IE内核
+    presto: u.indexOf('Presto') > -1, // opera内核
+    webKit: u.indexOf('AppleWebKit') > -1, // 苹果、谷歌内核
+    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, // 火狐内核
+    mobile: !!u.match(/AppleWebKit.*Mobile.*/)
+        || !!u.match(/AppleWebKit/), // 是否为移动终端
+    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), // ios终端
+                   android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, // android终端或者uc浏览器
+                   iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, // 是否为iPhone或者QQHD浏览器
+                   iPad: u.indexOf('iPad') > -1, // 是否iPad
+                   webApp: u.indexOf('Safari') == -1
+                   // 是否web应该程序，没有头部与底部
+                   };
+                   }(),
+                   language: (navigator.browserLanguage || navigator.language).toLowerCase()
+                   }
+
+                   function isIphone() {
+                   if (browser.versions.ios || browser.versions.iPhone
+                       || browser.versions.iPad) {
+                   return true;
+                   } else {
+                   return false;
+                   }
+                   }
