@@ -190,5 +190,5 @@ document.addEventListener('WebViewJavascriptBridgeReady', function () {
     bridge.init(function (message, responseCallback) {
 
     });
-    wanxiao.readycallback && wanxiao.readycallback();
+    wxEcardSdk.readycallback && wxEcardSdk.readycallback();
 }, false);
