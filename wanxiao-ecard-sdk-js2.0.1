@@ -1,0 +1,263 @@
+/**
+ *  支付SDK 2.0.1 添加 支持缴费的 pay  和checkUsable
+ * 支付SDK 2.0.0  支持 Android SDK 1.7, 1.9   iOS SDK 2.0 1.7
+ * 2018.05.24   iOS更新JS桥接方式
+ *
+ */
+
+/**
+ * 支付集成Android有2种方式：
+ * 1 第三方直接集成支付sdk，这种方式成为sdk集成方式
+ * 2 第三方调用app插件，这种方式成为app插件集成方式
+ *
+ * ios只有sdk集成方式
+ * Created by Lidong on 2016/7/20.
+ */
+function WxEcardSdk() {
+}
+
+/**
+ * 一卡通充值（APP插件集成适用 android系统调用支付app插件，ios调用支付sdk）
+ * @param jsonData   {
+ *                      order_param: jsonObj  //订单信息
+ *                      }
+ * @param callback  {
+ *                      errCode: 0     //结果代码：0成功 其他失败
+ *                      errStr: ""     //错误信息
+ *                      result: jsonObj   //支付平台结果回调
+ *                      }
+ */
+WxEcardSdk.prototype.ecardPayApp = function (jsonData,callback) {
+
+    var params = JSON.stringify(jsonData);
+    var postJsonObject = {
+        "parCallBack":"wxEcardSdk._NCPEcardPayAppCallback",
+        "parValue":params
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+
+    if (!isIphone()) {
+        WxEcardSdk.prototype._ecardPayApp=callback;
+        window.wanxiao_ecard_pay_app.pay(params,"wxEcardSdk._ecardPayApp");
+    } else {
+      if (window.bridge) {
+          jsname = "NCPEcardPay"; this.get_jsname();
+          jsonString = this.add_js_name(params, jsname);
+          bridge.registerHandler(jsname, callback);
+          bridge.callHandler('NCPEcardPay', jsonString, callback);
+      }
+      else
+      {
+          WxEcardSdk.prototype._NCPEcardPayCallback = callback;
+          window.webkit.messageHandlers.NCPEcardPay.postMessage(postParams);
+      }
+    }
+};
+
+/**
+ * 一卡通充值（sdk集成适用，android和ios都调用支付sdk）
+ * @param jsonData   {
+ *                      order_param: jsonObj  //订单信息
+ *                      }
+ * @param callback  {
+ *                      errCode: 0     //结果代码：0成功 其他失败
+ *                      errStr: ""     //错误信息
+ *                      result: jsonObj   //支付平台结果回调
+ *                      }
+ */
+WxEcardSdk.prototype.ecardPay = function (jsonData,callback) {
+
+    var params = JSON.stringify(jsonData);
+
+    var postJsonObject = {
+        "parCallBack":"wxEcardSdk._NCPEcardPayCallback",
+        "parValue":params
+    };
+
+    var postParams = JSON.stringify(postJsonObject);
+    if (!isIphone()) {
+        WxEcardSdk.prototype._ecardPay=callback;
+        window.wanxiao_ecard_pay.pay(params,"wxEcardSdk._ecardPay");
+    } else {
+      if (window.bridge) {
+          jsname = "NCPEcardPay"; this.get_jsname();
+          jsonString = this.add_js_name(params, jsname);
+          bridge.registerHandler(jsname, callback);
+          bridge.callHandler('NCPEcardPay', jsonString, callback);
+      }
+      else {
+        WxEcardSdk.prototype._NCPEcardPayCallback = callback;
+        window.webkit.messageHandlers.NCPEcardPay.postMessage(postParams);
+      }
+
+    }
+};
+
+//-----------------支付---------------------------
+/**
+ * 发起支付
+ * @param jsonData { pay_params: 调起第三方支付的参数 }
+ * @param callback 第三方返回的支付结果（json格式）或 状态代码
+ */
+WxEcardSdk.prototype.pay = function (jsonData,callback) {
+
+    var params = JSON.stringify(jsonData);
+
+    var postJsonObject = {
+        "parCallBack":"wxEcardSdk._payCallback",
+        "parValue":params
+    };
+
+    if (!isIphone()) {
+        WxEcardSdk.prototype._pay=callback;
+        window.wanxiao_pay.pay(params,"wxEcardSdk._pay");
+    } else {
+        if (window.bridge) {
+            jsname = "NCPPay"; this.get_jsname();
+            jsonString = this.add_js_name(params, jsname);
+            bridge.registerHandler(jsname, callback);
+            bridge.callHandler('NCPPay', jsonString, callback);
+        }
+        else
+        {
+          WxEcardSdk.prototype._payCallback = callback;
+          window.webkit.messageHandlers.pay.postMessage(postParams);
+        }
+    }
+};
+
+/**
+ * 校验支付方式是否可用
+ * @param jsonData { gateway_type: 支付方式类型 }
+ * @param callback {"errCode":为1时可用，其他不可用,
+ *                  "errMsg":错误信息,
+ *                  "errStr":错误信息,
+ *                  "payResult":暂时不用,
+ *                  "result":暂时不用}
+ */
+WxEcardSdk.prototype.checkUsable = function(jsonData,callback){
+    var params = JSON.stringify(jsonData);
+    var postJsonObject = {
+        "parCallBack":"wxEcardSdk._checkUsableCallback",
+        "parValue":params
+    };
+
+    if (!isIphone()) {
+        WxEcardSdk.prototype._checkUsable=callback;
+        window.wanxiao_pay.checkUsable(params,"wxEcardSdk._checkUsable");
+    } else {
+        if (window.bridge) {
+            jsname = "NCPCheckUsable"; this.get_jsname();
+            jsonString = this.add_js_name(params, jsname);
+            bridge.registerHandler(jsname, callback);
+            bridge.callHandler('NCPCheckUsable', jsonString, callback);
+        }
+        else
+        {
+          WxEcardSdk.prototype._checkUsableCallback = callback;
+          window.webkit.messageHandlers.checkUsable.postMessage(postParams);
+        }
+
+    }
+}
+
+/**
+ * 获取sdk信息（sdk集成适用，android和ios都调用支付sdk）
+ * @param callback  {
+ *                      version:""    // 版本信息
+ *                      service_url:""   //服务url
+ *                      }
+ */
+WxEcardSdk.prototype.getSdkInfo= function(callback){
+
+  var postJsonObject = {
+      "parCallBack":"wxEcardSdk._NCPGetSdkInfoCallback",
+      "parValue":""
+  };
+
+  var postParams = JSON.stringify(postJsonObject);
+    if (!isIphone()) {
+        WxEcardSdk.prototype._getSdkInfo=callback;
+        window.wanxiao_ecard_pay.getSdkInfo("wxEcardSdk._getSdkInfo");
+    } else {
+      if (window.bridge) {
+          jsname = "NCPGetSdkInfo"; this.get_jsname();
+          jsonString = this.add_js_name("{}", jsname);
+          bridge.registerHandler(jsname, callback);
+          bridge.callHandler('NCPGetSdkInfo', jsonString, callback);
+      }
+      else
+      {
+         WxEcardSdk.prototype._NCPGetSdkInfoCallback = callback;
+         window.webkit.messageHandlers.NCPGetSdkInfo.postMessage(postParams);
+      }
+    }
+}
+
+// 获得随机名字
+WxEcardSdk.prototype.get_jsname = function () {
+    var d = new Date();
+    return "wanxiao_" + d.getTime();
+};
+
+// json参数中加上方法名参数
+WxEcardSdk.prototype.add_js_name = function (jsonString, jsname) {
+    var obj = JSON.parse(jsonString);
+    obj.wx_jsname = jsname;
+    return JSON.stringify(obj);
+};
+
+WxEcardSdk.prototype.ready = function (callback) {
+    this.readycallback = callback;
+    if (!isIphone()) {
+        callback();
+    }
+}
+
+var wxEcardSdk = new WxEcardSdk();
+
+/*
+ * 智能机浏览器版本信息:
+ *
+ */
+var browser = {
+    versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {// 移动终端浏览器版本信息
+            trident: u.indexOf('Trident') > -1, // IE内核
+            presto: u.indexOf('Presto') > -1, // opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, // 苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, // 火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/)
+            || !!u.match(/AppleWebKit/), // 是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), // ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, // android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, // 是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, // 是否iPad
+            webApp: u.indexOf('Safari') == -1
+            // 是否web应该程序，没有头部与底部
+        };
+    }(),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+function isIphone() {
+    if (browser.versions.ios || browser.versions.iPhone
+        || browser.versions.iPad) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * IOS初始化js接口
+ */
+document.addEventListener('WebViewJavascriptBridgeReady', function () {
+    window.bridge = WebViewJavascriptBridge;
+    bridge.init(function (message, responseCallback) {
+
+    });
+    wxEcardSdk.readycallback && wxEcardSdk.readycallback();
+}, false);
