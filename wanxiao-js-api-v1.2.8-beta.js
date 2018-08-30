@@ -1,8 +1,9 @@
 /***********************************************************************
  * v1.2.8
+ * 2018-08-30  新增录音的方法
  * 2018-08-01  新增统一身份绑卡信息保存基于事件驱动方法的扩展，
  *             新增保存图片
- *             扩展setmenu1，样式扩展,list样式
+ *             扩展setmeu1，样式扩展,list样式
  *             打开新的webview中隐藏导航栏方法
  *
  * v1.2.7
@@ -1065,7 +1066,7 @@ Wanxiao.prototype.eventDriven = function (eventTag,dataInfo,callback) {
 /**
  * 保存图片信息
  *
- * @param dataInfo  {"imgdata":"图片base64信息/图片url地址"}
+ * @param dataInfo  图片base64信息/图片url地址
  *
  * @param callback  回调 成功{"code":"SUCCESS","message":""}
                             {"code":"ERROR","message":"失败原因"}
@@ -1094,6 +1095,88 @@ Wanxiao.prototype.saveImgInfo = function (dataInfo,callback) {
     }
 }
 
+/**
+ * 录音管理方法
+ * @param  recordEventTag  录音事件标志区分
+ *                         'startRecording'     开始录音
+ *                         'stopRecording'      停止录音
+ *                         'uploadRecording'    上传录音
+ *                         'playRecording'      播放录音
+ *                         'stopPlayRecording'  停止播放录音
+ *
+ * @param dataInfo  {} 预留json格式参数，不同状态时入参不同
+ *                         'startRecording'     开始录音
+ *                          {"overtime":30}     overtime 超时时间，单位秒，缺省值60秒
+ *
+ *                         'stopRecording'      停止录音
+ *                          无入参
+ *
+ *                         'uploadRecording'    上传录音
+ *                          {"localFileID":""}     localFileID 本地录音地址
+ *
+ *                         'playRecording'      播放录音
+ *                          {"localFileID":""}     localFileID 本地录音地址
+ *
+ *                         'stopPlayRecording'  停止播放录音
+ *                           {"localFileID":""}     localFileID 本地录音地址
+ *
+ * @param callback  回调   不同事件下不同返回
+
+ *                         'startRecording'     开始录音
+ *                              成功{"code":"SUCCESS","message":"","localFileID":""}
+ *                                     code SUCCESS 正常按照入参时间返回
+ *                                     code OVERTIME 超时返回
+ *                                  localFileID本地成功录音后的录音本地id
+ *                              失败{"code":"ERROR","message":"失败原因"}
+ *
+ *                         'stopRecording'      停止录音
+ *                              成功{"code":"SUCCESS","message":"","localFileID":""}
+ *                                     code SUCCESS 正常按照入参时间返回
+ *                                  localFileID本地成功录音后的录音本地id
+ *                              失败{"code":"ERROR","message":"失败原因"}
+ *
+ *                         'uploadRecording'    上传录音
+ *                              成功{"code":"SUCCESS","message":"","serrecordingURL":""}
+ *                                     code SUCCESS 正常按照入参时间返回
+ *                                    serrecordingURL服务端录音url地址
+ *                              失败{"code":"ERROR","message":"失败原因"}
+ *
+ *                         'playRecording'      播放录音
+ *                              成功{"code":"SUCCESS","message":""}
+ *                                     code SUCCESS 正常按照入参时间返回
+ *                                     code  "PLAYSUCCESS"  本地录音播放完成，返回
+ *
+ *                              失败{"code":"ERROR","message":"失败原因"}
+ *
+ *                         'stopPlayRecording'  停止播放录音
+ *                          无返回
+
+
+ */
+Wanxiao.prototype.recordEventDriven = function (recordEventTag,dataInfo,callback) {
+   var JsonObject = {
+        "recordEventTag": eventTag,
+        "dataInfo": dataInfo,
+        "callback": "wanxiao._recordEventDriven"
+    };
+    var params = JSON.stringify(JsonObject);
+
+    if (!isIphone()) {
+        Wanxiao.prototype._recordEventDriven = callback;
+        window.wanxiao_recordEventDriven.executeBindMethod("recordEventDriven", params);
+    } else {
+
+        var postJsonObject = {
+            "parCallBack":"wanxiao._recordEventDrivenCallback",
+            "parValue":params
+        };
+
+        var postParams = JSON.stringify(postJsonObject);
+
+        Wanxiao.prototype._recordEventDrivenCallback = callback;
+        window.webkit.messageHandlers.recordEventDriven.postMessage(postParams);
+    }
+}
 
 var wanxiao = new Wanxiao();
 
