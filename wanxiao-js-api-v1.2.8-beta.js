@@ -1155,7 +1155,7 @@ Wanxiao.prototype.saveImgInfo = function (dataInfo,callback) {
  */
 Wanxiao.prototype.recordEventDriven = function (recordEventTag,dataInfo,callback) {
    var JsonObject = {
-        "recordEventTag": eventTag,
+        "recordEventTag": recordEventTag,
         "dataInfo": dataInfo,
         "callback": "wanxiao._recordEventDriven"
     };
