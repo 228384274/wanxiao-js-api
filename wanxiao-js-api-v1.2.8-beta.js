@@ -1125,8 +1125,8 @@ Wanxiao.prototype.saveImgInfo = function (dataInfo,callback) {
  *                         'startRecording'     开始录音
  *                              成功{"code":"SUCCESS","message":"","localFileID":""}
  *                                     code SUCCESS 正常按照入参时间返回
- *                                     code OVERTIME 超时返回
- *                                  localFileID本地成功录音后的录音本地id
+ *				超时{"code":"OVERTIME","message":"","localFileID":""}
+ *                                     code OVERTIME 超时返回   localFileID本地录音文件地址
  *                              失败{"code":"ERROR","message":"失败原因"}
  *
  *                         'stopRecording'      停止录音
