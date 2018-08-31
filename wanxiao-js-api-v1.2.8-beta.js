@@ -1106,7 +1106,7 @@ Wanxiao.prototype.saveImgInfo = function (dataInfo,callback) {
  *
  * @param dataInfo  {} 预留json格式参数，不同状态时入参不同
  *                         'startRecording'     开始录音
- *                          {"overtime":30}     overtime 超时时间，单位秒，缺省值60秒
+ *                          {"overtime":30}     overtime 超时时间，单位秒，缺省值60秒 ,最大录音时间300秒
  *
  *                         'stopRecording'      停止录音
  *                          无入参
