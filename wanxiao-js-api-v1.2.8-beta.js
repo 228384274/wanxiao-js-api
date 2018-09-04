@@ -1123,30 +1123,30 @@ Wanxiao.prototype.saveImgInfo = function (dataInfo,callback) {
  * @param callback  回调   不同事件下不同返回
 
  *                         'startRecording'     开始录音
- *                              成功{"code":"SUCCESS","message":"","localFileID":""}
+ *                              成功{"recordEventTag":"startRecording","code":"SUCCESS","message":"","localFileID":""}
  *                                     code SUCCESS 正常按照入参时间返回
- *				超时{"code":"OVERTIME","message":"","localFileID":""}
+ *				超时{"recordEventTag":"startRecording","code":"OVERTIME","message":"","localFileID":""}
  *                                     code OVERTIME 超时返回   localFileID本地录音文件地址
- *                              失败{"code":"ERROR","message":"失败原因"}
+ *                              失败{"recordEventTag":"startRecording","code":"ERROR","message":"失败原因"}
  *
  *                         'stopRecording'      停止录音
- *                              成功{"code":"SUCCESS","message":"","localFileID":""}
+ *                              成功{"recordEventTag":"stopRecording","code":"SUCCESS","message":"","localFileID":""}
  *                                     code SUCCESS 正常按照入参时间返回
  *                                  localFileID本地成功录音后的录音本地id
- *                              失败{"code":"ERROR","message":"失败原因"}
+ *                              失败{"recordEventTag":"stopRecording","code":"ERROR","message":"失败原因"}
  *
  *                         'uploadRecording'    上传录音
- *                              成功{"code":"SUCCESS","message":"","serrecordingURL":""}
+ *                              成功{"recordEventTag":"uploadRecording","code":"SUCCESS","message":"","serrecordingURL":""}
  *                                     code SUCCESS 正常按照入参时间返回
  *                                    serrecordingURL服务端录音url地址
- *                              失败{"code":"ERROR","message":"失败原因"}
+ *                              失败{"recordEventTag":"uploadRecording","code":"ERROR","message":"失败原因"}
  *
  *                         'playRecording'      播放录音
- *                              成功{"code":"SUCCESS","message":""}
+ *                              成功{"recordEventTag":"playRecording","code":"SUCCESS","message":""}
  *                                     code SUCCESS 正常按照入参时间返回
  *                                     code  "PLAYSUCCESS"  本地录音播放完成，返回
  *
- *                              失败{"code":"ERROR","message":"失败原因"}
+ *                              失败{"recordEventTag":"playRecording","code":"ERROR","message":"失败原因"}
  *
  *                         'stopPlayRecording'  停止播放录音
  *                          无返回
